@@ -1,26 +1,39 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Chat from './components/Chat';
+import Input from './components/Input';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      output: []
+    }
+  }
+
+  handleOnClick = (user, message) => {
+    const arr = this.state.output;
+    const mess = {
+        user: user,
+        message: message
+    }
+    arr.push(mess);
+
+    this.setState({
+        output: arr
+    });
+  }
+
+  render() {
+    return(
+        <div className="App container">
+          <div className="chat">
+            <Chat output={this.state.output} />
+          </div>
+          <Input onclick={this.handleOnClick} />
+        </div>
+    );
+  }
 }
 
 export default App;
